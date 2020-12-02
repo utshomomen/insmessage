@@ -7,8 +7,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-
-
 public class client {
 
 
@@ -20,6 +18,8 @@ public class client {
         //int c=5;
         DatagramSocket clientSocket = new DatagramSocket();
         while(true)    //true
+
+
         {
             byte[] sendbuffer;
             byte[] receivebuffer = new byte[1024];
@@ -28,15 +28,14 @@ public class client {
             String clientData = clientRead.readLine();
             sendbuffer = clientData.getBytes();
             DatagramPacket sendPacket =
-                    new DatagramPacket(sendbuffer, sendbuffer.length, IP, 9876);
+                    new DatagramPacket(sendbuffer, sendbuffer.length, IP, 8000);
             clientSocket.send(sendPacket);
-            if(clientData.equalsIgnoreCase("bye"))
+            if(clientData.equalsIgnoreCase("quit"))
             {
                 System.out.println("Connection ended by client");
                 break;
             }
-            DatagramPacket receivePacket =
-                    new DatagramPacket(receivebuffer, receivebuffer.length);
+            DatagramPacket receivePacket = new DatagramPacket(receivebuffer, receivebuffer.length);
             clientSocket.receive(receivePacket);
             String serverData = new String(receivePacket.getData());
             System.out.print("\nServer: " + serverData);
